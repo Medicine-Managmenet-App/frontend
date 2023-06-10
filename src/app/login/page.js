@@ -9,7 +9,7 @@ import { TabView, TabPanel } from 'primereact/tabview';
 const LoginPage = () => {
   return (
     <div className="flex flex-column align-items-center justify-content-center h-screen">
-      <h1 className="text-center mb-5 text-2xl md:text-5xl">
+      <h1 className="text-center mt-5 text-2xl md:text-5xl absolute top-0">
         Welcome to <br />
         Medicine Management <span className="text-primary">App</span>
       </h1>
