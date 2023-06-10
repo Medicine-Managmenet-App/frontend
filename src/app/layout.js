@@ -1,5 +1,17 @@
-import './globals.css';
 import { Inter } from 'next/font/google';
+
+import './globals.css';
+//theme
+import 'primereact/resources/themes/bootstrap4-light-blue/theme.css';
+
+//core
+import 'primereact/resources/primereact.min.css';
+
+//icons
+import 'primeicons/primeicons.css';
+
+//primeflex
+import 'primeflex/primeflex.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
