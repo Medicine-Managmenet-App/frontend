@@ -9,7 +9,7 @@ import classes from './Navigation.module.css';
 const NavigationBar = () => {
   const pathname = usePathname();
   return (
-    <footer className="fixed bottom-0 w-full flex justify-content-center pb-3 pt-3 bg-white-alpha-90">
+    <footer className="fixed bottom-0 w-full flex justify-content-center pb-3 pt-3 bg-white-alpha-90 shadow-5">
       <ul className="flex p-0 m-0 mb-1 list-none gap-5 ">
         <li>
           <div className="flex flex-column align-items-center fadein transition-duration-300">
