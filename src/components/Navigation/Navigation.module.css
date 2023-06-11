@@ -1,0 +1,14 @@
+.active {
+  opacity: 100;
+  font-weight: 500;
+  transition-duration: 200ms;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: both;
+}
+
+.inactive {
+  opacity: 0.6;
+  transition-duration: 200ms;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: both;
+}
