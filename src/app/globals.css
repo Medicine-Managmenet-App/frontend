@@ -97,7 +97,6 @@ body {
 }
 
 body {
-  background-color: (var(--background-start-rgb));
   font-family: 'Inter', sans-serif;
 }
 
@@ -106,8 +105,12 @@ a {
   text-decoration: none;
 }
 
-.p-password {
-  width: 100%;
+footer {
+  transform: translateX(-50%);
+}
+
+.p-card-title {
+  font-weight: var(--font-light);
 }
 
 @media (prefers-color-scheme: dark) {

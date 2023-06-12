@@ -13,6 +13,9 @@ import 'primeicons/primeicons.css';
 //primeflex
 import 'primeflex/primeflex.css';
 
+import UserPanel from '@/components/UserPanel/UserPanel';
+import NavigationBar from '@/components/Navigation/Navigation';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
@@ -23,7 +26,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} bg-black-alpha-10`}>
+        <main>
+          <UserPanel />
+          {children}
+          <NavigationBar />
+        </main>
+      </body>
     </html>
   );
 }

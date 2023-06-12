@@ -22,7 +22,7 @@ const UserPanel = () => {
   };
 
   return (
-    <nav className="w-full p-3 lg:px-5 mb-4 flex justify-content-between align-items-center shadow-1">
+    <nav className="w-full p-3 lg:px-5 mb-4 flex justify-content-between align-items-center shadow-3 h-3rem absolute top-0 bg-white-alpha-90">
       <div className="text-sm">
         <h3>
           Today is <span className="text-primary">{formattedDate}</span>
