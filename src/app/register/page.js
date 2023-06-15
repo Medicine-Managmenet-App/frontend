@@ -1,17 +1,15 @@
-// login page
-
 'use client';
 
-import LoginForm from '@/components/LoginComponents/LoginForm';
+import RegisterForm from '@/components/LoginComponents/RegisterForm';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <section className="w-screen h-screen">
       <div className="flex flex-column align-items-center justify-content-center h-screen z-5">
-        <h2 className="text-center mb-3 text-4xl font-medium">
-          Welcome <span className="text-primary font-bold">back!</span>
+        <h2 className="text-center mb-3 text-3xl font-medium">
+          Welcome to <br /> Medicine Management <span className="text-primary font-bold">App</span>
         </h2>
-        <LoginForm className="z-5" />
+        <RegisterForm className="z-5" />
       </div>
       <div className="z-0">
         <svg
@@ -28,4 +26,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
