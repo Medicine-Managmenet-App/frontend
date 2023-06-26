@@ -3,16 +3,19 @@
 import { useState } from 'react';
 
 import MedicineScheduleCard from './MedicineScheduleCard';
+import AddMedicineForm from '../Forms/AddMedicineToSchedule/AddMedicineForm';
 
 import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 
 import classes from './MedicineSchedule.module.css';
 
 const MedicineSchedule = () => {
   const [date, setDate] = useState(new Date());
+  const [visible, setVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState({ name: 'John Smith', code: 1 });
   const familyMembers = [
     { name: 'John Smith', code: 1 },
@@ -49,7 +52,14 @@ const MedicineSchedule = () => {
             dateFormat="dd/MM/yy"
             className="w-7 lg:w-8 lg:mr-2"
           />
-          <Button label="Add" icon="pi pi-plus" className="w-4" />
+          <Button label="Add" icon="pi pi-plus" className="w-4" onClick={() => setVisible(true)} />
+          <Dialog
+            header="Add medicine"
+            visible={visible}
+            className="w-11 md:w-6"
+            onHide={() => setVisible(false)}>
+            <AddMedicineForm />
+          </Dialog>
         </div>
       </div>
       <div

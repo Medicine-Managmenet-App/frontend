@@ -13,24 +13,29 @@ import 'primeicons/primeicons.css';
 //primeflex
 import 'primeflex/primeflex.css';
 
+import { Providers } from '@/redux/provider/Providers';
+
 import UserPanel from '@/components/UserPanel/UserPanel';
 import NavigationBar from '@/components/Navigation/Navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Medicine Management App',
   description: 'Application that lets you schedule and manage your home medicine kit'
 };
 
 export default function RootLayout({ children }) {
+  const isLoggedIn = true;
+
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-black-alpha-10`}>
+      <body className={`${inter.className} surface-300`}>
         <main>
-          {/* <UserPanel /> */}
-          {children}
-          {/* <NavigationBar /> */}
+          <Providers>
+            {isLoggedIn && <UserPanel />}
+            {children}
+            {isLoggedIn && <NavigationBar />}
+          </Providers>
         </main>
       </body>
     </html>
