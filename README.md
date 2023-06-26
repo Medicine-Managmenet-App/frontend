@@ -1,6 +1,6 @@
 # Medicine Management App: Your Personal Medication Organizer
 
-Medicine Management App is a user-friendly application, where frontend is built with Next.js app router. It's designed to help users organize their medications, schedule them, keep track of their expiration dates, and even add family members to manage their medicines.
+Medicine Management App is a user-friendly application, where frontend is built with Next.js App Router. It's designed to help users organize their medications, schedule them, keep track of their expiration dates, and even add family members to manage their medicines.
 
 Check live version [here!](https://tobeadded)
 
@@ -16,10 +16,10 @@ Check live version [here!](https://tobeadded)
 
 ## Technologies Used
 
-- [Next.js 13](https://nextjs.org/)
+- [Next.js 13 with App Router](https://nextjs.org/)
 - [next-auth](https://next-auth.js.org/)
-- [Primereact](https://www.primefaces.org/primereact/)
-- [primeflex](https://www.primefaces.org/primeflex/)
+- [PrimeReact](https://www.primefaces.org/primereact/)
+- [PrimeFlex](https://www.primefaces.org/primeflex/)
 - [date-fns](https://date-fns.org/)
 
 ---
@@ -36,6 +36,29 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installation
 
 1. Clone the repo
+
    ```sh
-   git clone https://github.com/your_username_/MedTrack.git
+   git clone https://github.com/Medicine-Managmenet-App/frontend.git
    ```
+
+2. Navigate to the project directory
+
+   ```cd MedTrack
+
+   ```
+
+3. Install the dependencies
+
+   ```npm install
+
+   ```
+
+4. Run the development server
+
+   ```npm run dev
+
+   ```
+
+5. Open http://localhost:3000 with your browser to see the result.
+
+### Enjoy using Medicine Management App!
