@@ -43,20 +43,20 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. Navigate to the project directory
 
-   ```cd MedTrack
-
+   ```sh
+   cd Medicine-Management-App
    ```
 
 3. Install the dependencies
 
-   ```npm install
-
+   ```sh
+   npm install
    ```
 
 4. Run the development server
 
-   ```npm run dev
-
+   ```sh
+   npm run dev
    ```
 
 5. Open http://localhost:3000 with your browser to see the result.
