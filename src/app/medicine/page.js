@@ -1,15 +1,15 @@
-import MedicineTable from '@/components/MedicineKit/MedicineTable';
+import MedicationTable from '@/components/MedicationKit/MedicationTable';
 
 export const metadata = {
-  title: 'Medicine Kit | Medicine Management App'
+  title: 'Medication Kit | Medicine Management App'
 };
 
-const MedicineKitPage = () => {
+const MedicationKitPage = () => {
   return (
     <div>
-      <MedicineTable />
+      <MedicationTable />
     </div>
   );
 };
 
-export default MedicineKitPage;
+export default MedicationKitPage;

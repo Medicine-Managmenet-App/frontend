@@ -7,7 +7,7 @@ import SecondPage from './SecondPage';
 
 import { Button } from 'primereact/button';
 
-const AddMedicineForm = () => {
+const AddMedicationForm = () => {
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     medicineName: '',
@@ -52,4 +52,4 @@ const AddMedicineForm = () => {
   );
 };
 
-export default AddMedicineForm;
+export default AddMedicationForm;

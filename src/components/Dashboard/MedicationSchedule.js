@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import MedicineScheduleCard from './MedicineScheduleCard';
-import AddMedicineForm from '../Forms/AddMedicineToSchedule/AddMedicineForm';
+import MedicationScheduleCard from './MedicationScheduleCard';
+import AddMedicationForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
 
 import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
@@ -11,9 +11,9 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 
-import classes from './MedicineSchedule.module.css';
+import classes from './MedicationSchedule.module.css';
 
-const MedicineSchedule = () => {
+const MedicationSchedule = () => {
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
   const [selectedMember, setSelectedMember] = useState({ name: 'John Smith', code: 1 });
@@ -58,14 +58,14 @@ const MedicineSchedule = () => {
             visible={visible}
             className="w-11 md:w-6"
             onHide={() => setVisible(false)}>
-            <AddMedicineForm />
+            <AddMedicationForm />
           </Dialog>
         </div>
       </div>
       <div
         className={`overflow-auto border-round-md p-3 border-solid border-gray-400 ${classes.container}`}>
         {medicines.map((medicine, index) => (
-          <MedicineScheduleCard
+          <MedicationScheduleCard
             key={index}
             name={medicine.name}
             time={medicine.time}
@@ -77,4 +77,4 @@ const MedicineSchedule = () => {
   );
 };
 
-export default MedicineSchedule;
+export default MedicationSchedule;

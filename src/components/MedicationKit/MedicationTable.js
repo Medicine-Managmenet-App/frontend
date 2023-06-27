@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import AddMedicineToHomekitForm from '../Forms/AddMedicineToHomekit/AddMedicineForm';
+import AddMedicationToHomekitForm from '../Forms/AddMedicationToHomekit/AddMedicationForm';
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 
-const MedicineTable = () => {
+const MedicationTable = () => {
   const medicineKit = useSelector((state) => state.medicineKit);
   const [data, setData] = useState(medicineKit);
   const [visible, setVisible] = useState(false);
@@ -29,7 +29,7 @@ const MedicineTable = () => {
           visible={visible}
           className="w-11 md:w-6"
           onHide={() => setVisible(false)}>
-          <AddMedicineToHomekitForm />
+          <AddMedicationToHomekitForm />
         </Dialog>
       </div>
       <DataTable
@@ -47,4 +47,4 @@ const MedicineTable = () => {
   );
 };
 
-export default MedicineTable;
+export default MedicationTable;
