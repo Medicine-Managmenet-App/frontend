@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import MedicineScheduleCard from './MedicineScheduleCard';
-import AddMedicineForm from '../Forms/AddMedicineToSchedule/AddMedicineForm';
+import AddMedicationForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
 
 import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
@@ -58,7 +58,7 @@ const MedicineSchedule = () => {
             visible={visible}
             className="w-11 md:w-6"
             onHide={() => setVisible(false)}>
-            <AddMedicineForm />
+            <AddMedicationForm />
           </Dialog>
         </div>
       </div>

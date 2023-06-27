@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Calendar } from 'primereact/calendar';
 
-const AddMedicineToHomekitForm = () => {
+const AddMedicationToHomekitForm = () => {
   const [name, setName] = useState('');
   const [expirationDate, setExpirationDate] = useState(null);
   const [openedOn, setOpenedOn] = useState(null);
@@ -27,4 +27,4 @@ const AddMedicineToHomekitForm = () => {
   );
 };
 
-export default AddMedicineToHomekitForm;
+export default AddMedicationToHomekitForm;
