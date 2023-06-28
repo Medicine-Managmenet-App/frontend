@@ -8,29 +8,19 @@ import AddMedicationToHomekitForm from '../Forms/AddMedicationToHomekit/AddMedic
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
 
 const MedicationTable = () => {
-  const medicineKit = useSelector((state) => state.medicineKit);
-  const [data, setData] = useState(medicineKit);
-  const [visible, setVisible] = useState(false);
+  const medicationKit = useSelector((state) => state.medicationKit);
+  const [data, setData] = useState(medicationKit);
 
   useEffect(() => {
-    setData(medicineKit);
-  }, [medicineKit]);
+    setData(medicationKit);
+  }, [medicationKit]);
 
   return (
     <div className="mt-7 px-2">
       <div className="w-12 xl:w-1 mb-3">
-        <Button label="Add" icon="pi pi-plus" className="w-full" onClick={() => setVisible(true)} />
-        <Dialog
-          header="Add medicine"
-          visible={visible}
-          className="w-11 md:w-6"
-          onHide={() => setVisible(false)}>
-          <AddMedicationToHomekitForm />
-        </Dialog>
+        <AddMedicationToHomekitForm />
       </div>
       <DataTable
         value={data}
@@ -38,12 +28,22 @@ const MedicationTable = () => {
         sortMode="multiple"
         paginator
         rows={5}
-        rowsPerPageOptions={[5, 10]}
-        showGridlines>
-        <Column selectionMode="multiple" exportable={false}></Column>
+        rowsPerPageOptions={[5, 10]}>
+        <Column selectionMode="multiple" exportable={false} className="w-1rem" />
+
         <Column field="name" header="Name" sortable />
-        <Column field="expirationDate" header="Expiration date" sortable />
-        <Column field="openedOn" header="Opened on" sortable />
+        <Column
+          field="expirationDate"
+          header="Expiration date"
+          sortable
+          body={(rowData) => new Date(rowData.expirationDate).toDateString()}
+        />
+        <Column
+          field="openedOn"
+          header="Opened on"
+          sortable
+          body={(rowData) => new Date(rowData.openedOn).toDateString()}
+        />
       </DataTable>
     </div>
   );

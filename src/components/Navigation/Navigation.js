@@ -25,11 +25,11 @@ const NavigationBar = () => {
           <div className="flex flex-column align-items-center fadein transition-duration-300">
             <i
               className="pi pi-briefcase"
-              style={{ color: pathname === '/medicine' ? 'black' : 'gray' }}></i>
+              style={{ color: pathname === '/medication' ? 'black' : 'gray' }}></i>
             <Link
-              href="/medicine"
-              className={pathname === '/medicine' ? `${classes.active}` : `${classes.inactive}`}>
-              Medicine Kit
+              href="/medication"
+              className={pathname === '/medication' ? `${classes.active}` : `${classes.inactive}`}>
+              Medication Kit
             </Link>
           </div>
         </li>

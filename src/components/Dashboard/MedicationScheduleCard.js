@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { Divider } from 'primereact/divider';
 import { Checkbox } from 'primereact/checkbox';
 
-const MedicineScheduleCard = (props) => {
+const MedicationScheduleCard = (props) => {
   const [checked, setChecked] = useState(false);
   const [takenAt, setTakenAt] = useState('');
 
@@ -47,4 +47,4 @@ const MedicineScheduleCard = (props) => {
   );
 };
 
-export default MedicineScheduleCard;
+export default MedicationScheduleCard;
