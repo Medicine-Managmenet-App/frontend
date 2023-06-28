@@ -34,6 +34,9 @@ const AddMedicationToHomekitForm = () => {
         })
       );
       showSuccess();
+      setName('');
+      setExpirationDate(null);
+      setOpenedOn(null);
       setIsError(false);
       setVisible(false);
     }
@@ -43,8 +46,8 @@ const AddMedicationToHomekitForm = () => {
     toast.current.show({
       severity: 'success',
       summary: 'Success',
-      detail: 'Medicine submitted',
-      life: 3000
+      detail: 'Medicine added to homekit',
+      life: 2500
     });
   };
 
@@ -73,6 +76,7 @@ const AddMedicationToHomekitForm = () => {
         <div className="flex flex-column gap-2 mb-4">
           <label htmlFor="expirationDate">Expiration Date</label>
           <Calendar
+            dateFormat="dd/mm/yy"
             id="expirationDate"
             value={expirationDate}
             className={isError && expirationDate === null && 'p-invalid'}
@@ -86,6 +90,7 @@ const AddMedicationToHomekitForm = () => {
         <div className="flex flex-column gap-2 mb-4">
           <label htmlFor="openingDate">Opened on</label>
           <Calendar
+            dateFormat="dd/mm/yy"
             id="openingDate"
             value={openedOn}
             className={isError && openedOn === null && 'p-invalid'}
