@@ -101,6 +101,7 @@ const AddMedicationToHomekitForm = () => {
             className={isError && openedOn === null && 'p-invalid'}
             onChange={(e) => setOpenedOn(e.value)}
             showIcon
+            showButtonBar
           />
           {isError && openedOn === null && (
             <small className="p-error">Opening Date is required</small>
