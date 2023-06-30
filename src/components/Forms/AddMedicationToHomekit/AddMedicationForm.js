@@ -3,6 +3,8 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { addDays } from 'date-fns';
+
 import { addMedicationToKit } from '@/redux/slices/home-medication-kit-slice';
 
 import { Dialog } from 'primereact/dialog';
@@ -19,6 +21,7 @@ const AddMedicationToHomekitForm = () => {
   const [isError, setIsError] = useState(false);
   const toast = useRef(null);
   const dispatch = useDispatch();
+  const today = new Date();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -74,6 +77,7 @@ const AddMedicationToHomekitForm = () => {
           <label htmlFor="expirationDate">Expiration Date</label>
           <Calendar
             id="expirationDate"
+            minDate={addDays(today, 1)}
             value={expirationDate}
             className={isError && expirationDate === null && 'p-invalid'}
             onChange={(e) => setExpirationDate(e.value)}
@@ -87,6 +91,7 @@ const AddMedicationToHomekitForm = () => {
           <label htmlFor="openingDate">Opened on</label>
           <Calendar
             id="openingDate"
+            maxDate={today}
             value={openedOn}
             className={isError && openedOn === null && 'p-invalid'}
             onChange={(e) => setOpenedOn(e.value)}

@@ -30,7 +30,6 @@ const MedicationTable = () => {
         rows={5}
         rowsPerPageOptions={[5, 10]}>
         <Column selectionMode="multiple" exportable={false} className="w-1rem" />
-
         <Column field="name" header="Name" sortable />
         <Column
           field="expirationDate"
