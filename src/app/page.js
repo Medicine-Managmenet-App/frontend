@@ -1,9 +1,5 @@
 import MedicationSchedule from '@/components/Dashboard/MedicationSchedule';
 
-export const metadata = {
-  title: 'Dashboard | Medicine Management App'
-};
-
 export default function Home() {
   return (
     <>
@@ -13,3 +9,7 @@ export default function Home() {
     </>
   );
 }
+
+export const metadata = {
+  title: 'Dashboard | Medicine Management App'
+};

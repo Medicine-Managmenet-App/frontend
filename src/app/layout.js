@@ -20,10 +20,6 @@ import NavigationBar from '@/components/Navigation/Navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata = {
-  description: 'Application that lets you schedule and manage your home medicine kit'
-};
-
 export default function RootLayout({ children }) {
   const isLoggedIn = true;
 
@@ -41,3 +37,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+export const metadata = {
+  description: 'Application that lets you schedule and manage your home medicine kit'
+};
