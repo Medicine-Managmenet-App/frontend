@@ -2,10 +2,6 @@
 
 import RegisterForm from '@/components/LoginComponents/RegisterForm';
 
-export const metadata = {
-  title: 'Register | Medicine Management App'
-};
-
 const RegisterPage = () => {
   return (
     <section className="w-screen h-screen">
@@ -28,6 +24,10 @@ const RegisterPage = () => {
       </div>
     </section>
   );
+};
+
+export const metadata = {
+  title: 'Register | Medicine Management App'
 };
 
 export default RegisterPage;

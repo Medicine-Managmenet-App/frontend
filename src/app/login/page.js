@@ -4,10 +4,6 @@
 
 import LoginForm from '@/components/LoginComponents/LoginForm';
 
-export const metadata = {
-  title: 'Login | Medicine Management App'
-};
-
 const LoginPage = () => {
   return (
     <section className="w-screen h-screen">
@@ -30,6 +26,10 @@ const LoginPage = () => {
       </div>
     </section>
   );
+};
+
+export const metadata = {
+  title: 'Login | Medicine Management App'
 };
 
 export default LoginPage;
