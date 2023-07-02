@@ -14,7 +14,7 @@ export const medicationKitSlice = createSlice({
       state.push(action.payload);
     },
     removeMedicationFromKit: (state, action) => {
-      return state.filter((member) => member.name !== action.payload.name);
+      return state.filter((medication) => medication.name !== action.payload.name);
     }
   }
 });

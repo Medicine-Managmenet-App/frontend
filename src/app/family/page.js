@@ -1,5 +1,11 @@
+import FamilyView from '@/components/FamilyPanel/FamilyView';
+
 const FamilyPage = () => {
-  return <div>Family</div>;
+  return (
+    <div>
+      <FamilyView />
+    </div>
+  );
 };
 
 export const metadata = {

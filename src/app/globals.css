@@ -109,6 +109,19 @@ footer {
 .p-card-title {
   font-weight: var(--font-light);
 }
+.container {
+  height: calc(100vh * 0.65);
+}
+
+.container-family-panel {
+  height: calc(100vh * 0.78);
+}
+
+@media (max-width: 950px) {
+  .container {
+    height: calc(100vh * 0.5);
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   html {

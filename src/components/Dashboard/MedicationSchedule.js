@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import MedicationScheduleCard from './MedicationScheduleCard';
 import AddMedicationForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
 
@@ -11,19 +13,12 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 
-import classes from './MedicationSchedule.module.css';
-
 const MedicationSchedule = () => {
   const [date, setDate] = useState(new Date());
   const [visible, setVisible] = useState(false);
-  const [selectedMember, setSelectedMember] = useState({ name: 'John Smith', code: 1 });
-  const familyMembers = [
-    { name: 'John Smith', code: 1 },
-    { name: 'Ann Smith', code: 2 },
-    { name: 'Mark Smith', code: 3 },
-    { name: 'Emily Smith', code: 4 },
-    { name: 'John Smith jr', code: 5 }
-  ];
+  const family = useSelector((state) => state.family);
+  const [selectedMember, setSelectedMember] = useState(family[0]);
+
   const medicines = [
     { name: 'Antibiotic', time: '08:00', dosage: '2 mg' },
     { name: 'Apap', time: '10:30', dosage: '1 pill' },
@@ -39,7 +34,7 @@ const MedicationSchedule = () => {
       </h2>
       <div className="flex flex-column md:flex-row gap-2 mb-3">
         <Dropdown
-          options={familyMembers}
+          options={family}
           optionLabel="name"
           className="w-full md:w-3 lg:w-2"
           value={selectedMember}
@@ -62,8 +57,7 @@ const MedicationSchedule = () => {
           </Dialog>
         </div>
       </div>
-      <div
-        className={`overflow-auto border-round-md p-3 border-solid border-gray-400 ${classes.container}`}>
+      <div className={`overflow-auto border-round-md p-3 border-solid border-gray-400 container`}>
         {medicines.map((medicine, index) => (
           <MedicationScheduleCard
             key={index}

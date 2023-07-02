@@ -56,13 +56,25 @@ const AddMedicationToHomekitForm = () => {
 
   return (
     <>
-      <Button label="Add" icon="pi pi-plus" className="w-full" onClick={() => setVisible(true)} />
+      <Button
+        label="Add"
+        icon="pi pi-plus"
+        className="w-full"
+        onClick={() => {
+          setVisible(true);
+        }}
+      />
       <Toast ref={toast} />
       <Dialog
         header="Add medicine"
         visible={visible}
         className="w-11 md:w-3"
-        onHide={() => setVisible(false)}>
+        onHide={() => {
+          setVisible(false);
+          setName('');
+          setExpirationDate(null);
+          setOpenedOn(null);
+        }}>
         <div className="flex flex-column gap-2 mb-4">
           <label htmlFor="name">Name</label>
           <InputText

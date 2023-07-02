@@ -46,7 +46,7 @@ const LoginForm = () => {
         </div>
         <Button label="Submit" className="mb-4" />
         <p className="text-900 w-10 text-center text-xs">
-          Don{}t have an account yet? <br />
+          Don{`'`}t have an account yet? <br />
           Click{' '}
           <Link href={'/register'} className="text-primary">
             here
