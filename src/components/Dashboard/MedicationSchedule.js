@@ -5,17 +5,14 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import MedicationScheduleCard from './MedicationScheduleCard';
-import AddMedicationForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
+import AddMedicationToScheduleForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
 
 import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
-import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
 
 const MedicationSchedule = () => {
   const [date, setDate] = useState(new Date());
-  const [visible, setVisible] = useState(false);
   const family = useSelector((state) => state.family);
   const [selectedMember, setSelectedMember] = useState(family[0]);
 
@@ -45,17 +42,10 @@ const MedicationSchedule = () => {
             value={date}
             onChange={(e) => setDate(e.value)}
             dateFormat="dd/MM/yy"
-            className="w-7 lg:w-8 lg:mr-2"
+            className="w-full"
           />
-          <Button label="Add" icon="pi pi-plus" className="w-4" onClick={() => setVisible(true)} />
-          <Dialog
-            header="Add medicine"
-            visible={visible}
-            className="w-11 md:w-6"
-            onHide={() => setVisible(false)}>
-            <AddMedicationForm />
-          </Dialog>
         </div>
+        <AddMedicationToScheduleForm />
       </div>
       <div className={`overflow-auto border-round-md p-3 border-solid border-gray-400 container`}>
         {medicines.map((medicine, index) => (

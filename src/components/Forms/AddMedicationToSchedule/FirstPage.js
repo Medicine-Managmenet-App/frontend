@@ -1,58 +1,118 @@
-'use client';
+import { useState } from 'react';
+
+import { useSelector } from 'react-redux';
 
 import { Dropdown } from 'primereact/dropdown';
+import { InputNumber } from 'primereact/inputnumber';
+import { Dialog } from 'primereact/dialog';
+import { Button } from 'primereact/button';
 
 const FirstPage = ({ formData, setFormData }) => {
-  const familyMembers = [
-    { name: 'John Smith', code: 1 },
-    { name: 'Ann Smith', code: 2 },
-    { name: 'Mark Smith', code: 3 },
-    { name: 'Emily Smith', code: 4 },
-    { name: 'John Smith jr', code: 5 }
-  ];
-  const medicines = [
-    { name: 'Apap', code: 1 },
-    { name: 'Antibiotic', code: 2 },
-    { name: 'Ibuprofen', code: 3 },
-    { name: 'Nurofen', code: 4 },
-    { name: 'Prosenazol', code: 5 }
-  ];
-  const dosageType = [
-    { name: 'Pill(s)', code: 1 },
-    { name: 'Milligrams', code: 2 },
-    { name: 'Ihales', code: 3 },
-    { name: 'Applications', code: 4 }
+  const [isError, setIsError] = useState(false);
+  const [infoVisible, setInfoVisible] = useState(false);
+  const family = useSelector((state) => state.family);
+  const medicationKit = useSelector((state) => state.medicationKit);
+
+  const medForms = [
+    'Pill(s)',
+    'Injection(s)',
+    'Drop(s)',
+    'Inhale(s)',
+    'Milligram(s)',
+    'Milliliter(s)'
   ];
 
+  const scheduleTypes = ['Everyday', 'Every X days', 'Specific days of the week'];
+
   return (
-    <div className="flex flex-column justify-content-center my-4">
-      <div className="w-11 md:w-8 mb-5">
-        <label htmlFor="familyMember">Who will be taking this medicine?</label>
+    <>
+      <div className="flex flex-column gap-2 mb-4">
+        <label htmlFor="name">Who will be taking this medication?</label>
         <Dropdown
-          inputId="familyMember"
-          options={familyMembers}
-          value={formData.familyMemberId}
-          onChange={(event) => setFormData({ ...formData, familyMemberId: event.target.value })}
+          id="owner"
+          className={isError && formData.owner === null && 'p-invalid'}
+          value={formData.owner}
+          options={family}
           optionLabel="name"
-          filter
-          placeholder="Select a family member"
-          className="w-full mt-3"
+          onChange={(event) => setFormData({ ...formData, owner: event.value })}
         />
+        {isError && formData.owner === null && (
+          <small className="p-error">This field is required</small>
+        )}
       </div>
-      <div className="w-11 md:w-8">
-        <label htmlFor="medicine">What medicine will they be taking?</label>
+      <div className="flex flex-column gap-2 mb-4">
+        <label htmlFor="medication">Select medication from homekit</label>
         <Dropdown
-          inputId="medicine"
-          options={medicines}
-          value={formData.medicineName}
-          onChange={(event) => setFormData({ ...formData, medicineName: event.target.value })}
+          id="medication"
+          className={isError && formData.medication === null && 'p-invalid'}
+          value={formData.medication}
+          options={medicationKit}
           optionLabel="name"
-          filter
-          placeholder="Select a medicine"
-          className="w-full mt-3"
+          onChange={(event) => setFormData({ ...formData, medication: event.value })}
         />
+        {isError && formData.medication === null && (
+          <small className="p-error">Medication is required</small>
+        )}
       </div>
-    </div>
+      <div className="flex flex-column gap-2 mb-4">
+        <label htmlFor="medForm">What form is the medication</label>
+        <Dropdown
+          id="medForm"
+          className={isError && formData.medForm === null && 'p-invalid'}
+          value={formData.medForm}
+          options={medForms}
+          onChange={(event) => setFormData({ ...formData, medForm: event.value })}
+        />
+        {isError && formData.medForm === null && (
+          <small className="p-error">Medication form is required</small>
+        )}
+      </div>
+      <div className="flex flex-column gap-2 mb-4">
+        <div className="flex align-items-center">
+          <label htmlFor="dosage">Dosage</label>
+          <Button
+            icon="pi pi-info-circle"
+            className="ml-2"
+            rounded
+            text
+            onClick={() => setInfoVisible(true)}
+          />
+        </div>
+        <Dialog header="Dosage tip" visible={infoVisible} onHide={() => setInfoVisible(false)}>
+          <p>
+            Enter dosage amount of selected medication form.
+            <br />
+            For example, if you have chosen pills, enter how many pills one dosage should consist
+            of.
+          </p>
+        </Dialog>
+        <InputNumber
+          id="dosage"
+          maxFractionDigits={2}
+          min={1}
+          max={1000}
+          className={isError && formData.dosage && weight === null && 'p-invalid'}
+          value={formData.dosage}
+          onChange={(event) => setFormData({ ...formData, dosage: event.value })}
+        />
+        {isError && formData.dosage && weight === null && (
+          <small className="p-error">Dosage is required</small>
+        )}
+      </div>
+      <div className="flex flex-column gap-2 mb-4">
+        <label htmlFor="scheduleType">How often do you take it?</label>
+        <Dropdown
+          id="scheduleType"
+          className={isError && formData.scheduleType === null && 'p-invalid'}
+          value={formData.scheduleType}
+          options={scheduleTypes}
+          onChange={(event) => setFormData({ ...formData, scheduleType: event.value })}
+        />
+        {isError && formData.medForm === null && (
+          <small className="p-error">Schedule type is required</small>
+        )}
+      </div>
+    </>
   );
 };
 

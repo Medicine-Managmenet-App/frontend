@@ -38,7 +38,6 @@ const AddFamilyMemberForm = () => {
     setGender('');
     setDateOfBirth(null);
     setWeight(null);
-    setChecked(false);
   };
 
   const handleSubmit = (event) => {
