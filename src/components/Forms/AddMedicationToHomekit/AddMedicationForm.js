@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { nanoid } from 'nanoid';
 import { addDays } from 'date-fns';
 
 import { addMedicationToKit } from '@/redux/slices/home-medication-kit-slice';
@@ -30,7 +31,7 @@ const AddMedicationToHomekitForm = () => {
     } else {
       dispatch(
         addMedicationToKit({
-          id: Math.floor(Math.random() * 900) + 100,
+          id: nanoid(10),
           name: name.trim(),
           expirationDate: expirationDate,
           openedOn: openedOn

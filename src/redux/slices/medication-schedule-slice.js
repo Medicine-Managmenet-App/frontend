@@ -30,8 +30,8 @@ const initialState = [
     },
     dosagePerDay: 2,
     dosageHours: ['2023-07-06T14:15:00.003Z', '2023-07-06T17:10:00.003Z'],
-    takenAt: null,
-    additionDate: new Date()
+    additionDate: new Date(),
+    id: 1
   },
   {
     owner: {
@@ -60,8 +60,8 @@ const initialState = [
     },
     dosagePerDay: 2,
     dosageHours: ['2023-07-06T14:15:00.003Z', '2023-07-06T17:10:00.003Z'],
-    takenAt: null,
-    additionDate: new Date()
+    additionDate: new Date(),
+    id: 3
   },
   {
     owner: {
@@ -90,8 +90,8 @@ const initialState = [
     },
     dosagePerDay: 2,
     dosageHours: ['2023-07-06T15:30:00.003Z', '2023-07-06T16:20:00.003Z'],
-    takenAt: null,
-    additionDate: new Date()
+    additionDate: new Date(),
+    id: 3
   }
 ];
 

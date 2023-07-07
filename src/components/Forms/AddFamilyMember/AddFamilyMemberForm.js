@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { nanoid } from 'nanoid';
 import { differenceInYears } from 'date-fns';
 
 import { addFamilyMember } from '@/redux/slices/family-slice';
@@ -52,7 +53,7 @@ const AddFamilyMemberForm = () => {
     } else {
       dispatch(
         addFamilyMember({
-          id: Math.floor(Math.random() * 900) + 100,
+          id: nanoid(10),
           name: name.trim(),
           isChild: isChild,
           dateOfBirth: dateOfBirth,

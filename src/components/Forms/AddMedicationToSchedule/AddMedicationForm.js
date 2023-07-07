@@ -38,8 +38,8 @@ const AddMedicationToScheduleForm = () => {
     },
     dosagePerDay: null,
     dosageHours: [],
-    takenAt: null,
-    additionDate: null
+    additionDate: null,
+    id: null
   });
   const toast = useRef(null);
   const dispatch = useDispatch();
@@ -73,8 +73,8 @@ const AddMedicationToScheduleForm = () => {
       },
       dosagePerDay: null,
       dosageHours: [],
-      takenAt: null,
-      additionDate: null
+      additionDate: null,
+      id: null
     });
     setTimeout(() => {
       setPage(0);
