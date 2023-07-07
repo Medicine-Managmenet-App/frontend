@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
+
+import { compareAsc, parse, format } from 'date-fns';
+import { getMedicinesForDay } from '@/libs/utils/getMedicinesForDay';
 
 import MedicationScheduleCard from './MedicationScheduleCard';
 import AddMedicationToScheduleForm from '../Forms/AddMedicationToSchedule/AddMedicationForm';
@@ -10,19 +13,19 @@ import AddMedicationToScheduleForm from '../Forms/AddMedicationToSchedule/AddMed
 import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
+import { Divider } from 'primereact/divider';
 
 const MedicationSchedule = () => {
   const [date, setDate] = useState(new Date());
   const family = useSelector((state) => state.family);
+  const scheduledMedicines = useSelector((state) => state.schedule);
   const [selectedMember, setSelectedMember] = useState(family[0]);
+  const [medicines, setMedicines] = useState([]);
 
-  const medicines = [
-    { name: 'Antibiotic', time: '08:00', dosage: '2 mg' },
-    { name: 'Apap', time: '10:30', dosage: '1 pill' },
-    { name: 'Nurofen', time: '12:00', dosage: '2 pills' },
-    { name: 'Posenazol', time: '15:00', dosage: '5 mg' },
-    { name: 'Samostol', time: '18:00', dosage: '5 mg' }
-  ];
+  useEffect(() => {
+    const result = getMedicinesForDay(scheduledMedicines, date, selectedMember);
+    setMedicines(result);
+  }, [scheduledMedicines, date, selectedMember]);
 
   return (
     <Card className="md:mx-3">
@@ -48,14 +51,26 @@ const MedicationSchedule = () => {
         <AddMedicationToScheduleForm />
       </div>
       <div className={`overflow-auto border-round-md p-3 border-solid border-gray-400 container`}>
-        {medicines.map((medicine, index) => (
-          <MedicationScheduleCard
-            key={index}
-            name={medicine.name}
-            time={medicine.time}
-            dosage={medicine.dosage}
-          />
-        ))}
+        {Object.keys(medicines)
+          .sort((a, b) =>
+            compareAsc(parse(a, 'HH:mm:ss', new Date()), parse(b, 'HH:mm:ss', new Date()))
+          )
+          .map((time) => {
+            const formattedTime = format(parse(time, 'HH:mm:ss', new Date()), 'HH:mm');
+
+            return (
+              <>
+                <Divider align="left">
+                  <div className="inline-flex align-items-center">
+                    <b>{formattedTime}</b>
+                  </div>
+                </Divider>
+                {medicines[time].map((medicine, index) => (
+                  <MedicationScheduleCard key={index} medicine={medicine} />
+                ))}
+              </>
+            );
+          })}
       </div>
     </Card>
   );

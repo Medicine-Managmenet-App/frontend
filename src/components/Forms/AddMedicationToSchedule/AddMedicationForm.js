@@ -3,8 +3,12 @@
 import { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { addMedicationToSchedule } from '@/redux/slices/medication-schedule-slice';
+
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
+import ThirdPage from './ThirdPage';
+import FourthPage from './FourthPage';
 
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
@@ -15,45 +19,66 @@ const AddMedicationToScheduleForm = () => {
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     owner: {},
-    medication: '',
+    medication: {},
     medForm: '',
     dosage: null,
     scheduleType: '',
-    dayIntervals: null
+    isEveryday: false,
+    isDayIntervals: false,
+    dayIntervals: null,
+    isSpecificDays: false,
+    specificDays: {
+      Monday: false,
+      Tuesday: false,
+      Wednesday: false,
+      Thursday: false,
+      Friday: false,
+      Saturday: false,
+      Sunday: false
+    },
+    dosagePerDay: null,
+    dosageHours: [],
+    takenAt: null,
+    additionDate: null
   });
   const toast = useRef(null);
   const dispatch = useDispatch();
 
-  const today = new Date();
-
-  const resetFormValues = () => {
-    setFormData({ owner: {}, medication: '', medForm: '', dosage: null, scheduleType: '' });
+  const handleSubmit = () => {
+    dispatch(addMedicationToSchedule(formData));
+    setVisible(false);
+    console.log(formData);
+    resetFormValues();
+    showSuccess();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (
-      name.trim().length === 0 ||
-      gender.length === 0 ||
-      dateOfBirth === null ||
-      (isChild && weight === null)
-    ) {
-      setIsError(true);
-    } else {
-      dispatch(
-        addFamilyMember({
-          id: Math.floor(Math.random() * 900) + 100,
-          name: name.trim(),
-          isChild: isChild,
-          dateOfBirth: dateOfBirth,
-          weight: weight,
-          isMale: isMale
-        })
-      );
-      showSuccess();
-      resetFormValues();
-      setVisible(false);
-    }
+  const resetFormValues = () => {
+    setFormData({
+      owner: {},
+      medication: {},
+      medForm: '',
+      dosage: null,
+      isEveryday: false,
+      isDayIntervals: false,
+      dayIntervals: null,
+      isSpecificDays: false,
+      specificDays: {
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+        Saturday: false,
+        Sunday: false
+      },
+      dosagePerDay: null,
+      dosageHours: [],
+      takenAt: null,
+      additionDate: null
+    });
+    setTimeout(() => {
+      setPage(0);
+    }, '500');
   };
 
   const showSuccess = () => {
@@ -67,13 +92,31 @@ const AddMedicationToScheduleForm = () => {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <FirstPage formData={formData} setFormData={setFormData} />;
+      return <FirstPage formData={formData} setFormData={setFormData} setPage={setPage} />;
     } else if (page === 1) {
-      return (
-        <SecondPage formData={formData} setFormData={setFormData} page={page} setPage={setPage} />
-      );
+      return <SecondPage formData={formData} setFormData={setFormData} setPage={setPage} />;
+    } else if (page === 2) {
+      return <ThirdPage formData={formData} setFormData={setFormData} setPage={setPage} />;
     } else if (page === 3) {
-      return;
+      return (
+        <>
+          <FourthPage formData={formData} setFormData={setFormData} setPage={setPage} />
+          <div className="w-full flex justify-content-between">
+            <Button
+              className="pi pi-angle-left"
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              }}
+            />
+            <Button
+              label="Submit"
+              style={{ justifySelf: 'end' }}
+              disabled={formData.dosageHours.length < formData.dosagePerDay}
+              onClick={handleSubmit}
+            />
+          </div>
+        </>
+      );
     }
   };
 
@@ -94,34 +137,6 @@ const AddMedicationToScheduleForm = () => {
           resetFormValues();
         }}>
         <div>{PageDisplay()}</div>
-        <div className="w-full flex justify-content-between">
-          <Button
-            className="pi pi-angle-left"
-            disabled={page === 0}
-            onClick={() => {
-              setPage((currPage) => currPage - 1);
-            }}
-          />
-          <Button
-            className={page < 3   && 'pi pi-angle-right'}
-            label={page === 3 && 'Submit'}
-            style={{ justifySelf: 'end' }}
-            disabled={
-              (page === 0 && formData.owner.name?.trim().length === 0 ||
-              formData.medication === '' ||
-              formData.medForm === '' ||
-              formData.dosage === null ||
-              formData.scheduleType === '')
-            }
-            onClick={() => {
-              if (page === 3) {
-                console.log(formData);
-              } else {
-                setPage((currPage) => currPage + 1);
-              }
-            }}
-          />
-        </div>
       </Dialog>
     </>
   );

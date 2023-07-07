@@ -7,8 +7,8 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 
-const FirstPage = ({ formData, setFormData }) => {
-  const [isError, setIsError] = useState(false);
+const FirstPage = ({ formData, setFormData, setPage }) => {
+  const [selectedScheduleType, setSelectedScheduleType] = useState('');
   const [infoVisible, setInfoVisible] = useState(false);
   const family = useSelector((state) => state.family);
   const medicationKit = useSelector((state) => state.medicationKit);
@@ -30,46 +30,34 @@ const FirstPage = ({ formData, setFormData }) => {
         <label htmlFor="name">Who will be taking this medication?</label>
         <Dropdown
           id="owner"
-          className={isError && formData.owner === null && 'p-invalid'}
           value={formData.owner}
           options={family}
           optionLabel="name"
           onChange={(event) => setFormData({ ...formData, owner: event.value })}
         />
-        {isError && formData.owner === null && (
-          <small className="p-error">This field is required</small>
-        )}
       </div>
       <div className="flex flex-column gap-2 mb-4">
         <label htmlFor="medication">Select medication from homekit</label>
         <Dropdown
           id="medication"
-          className={isError && formData.medication === null && 'p-invalid'}
           value={formData.medication}
           options={medicationKit}
           optionLabel="name"
           onChange={(event) => setFormData({ ...formData, medication: event.value })}
         />
-        {isError && formData.medication === null && (
-          <small className="p-error">Medication is required</small>
-        )}
       </div>
       <div className="flex flex-column gap-2 mb-4">
         <label htmlFor="medForm">What form is the medication</label>
         <Dropdown
           id="medForm"
-          className={isError && formData.medForm === null && 'p-invalid'}
           value={formData.medForm}
           options={medForms}
           onChange={(event) => setFormData({ ...formData, medForm: event.value })}
         />
-        {isError && formData.medForm === null && (
-          <small className="p-error">Medication form is required</small>
-        )}
       </div>
       <div className="flex flex-column gap-2 mb-4">
         <div className="flex align-items-center">
-          <label htmlFor="dosage">Dosage</label>
+          <label htmlFor="dosage">Dosage of medication form</label>
           <Button
             icon="pi pi-info-circle"
             className="ml-2"
@@ -91,26 +79,65 @@ const FirstPage = ({ formData, setFormData }) => {
           maxFractionDigits={2}
           min={1}
           max={1000}
-          className={isError && formData.dosage && weight === null && 'p-invalid'}
           value={formData.dosage}
           onChange={(event) => setFormData({ ...formData, dosage: event.value })}
         />
-        {isError && formData.dosage && weight === null && (
-          <small className="p-error">Dosage is required</small>
-        )}
       </div>
       <div className="flex flex-column gap-2 mb-4">
         <label htmlFor="scheduleType">How often do you take it?</label>
         <Dropdown
           id="scheduleType"
-          className={isError && formData.scheduleType === null && 'p-invalid'}
-          value={formData.scheduleType}
+          value={selectedScheduleType}
           options={scheduleTypes}
-          onChange={(event) => setFormData({ ...formData, scheduleType: event.value })}
+          onChange={(event) => {
+            setSelectedScheduleType(event.value);
+            if (event.value === 'Everyday') {
+              setFormData({
+                ...formData,
+                isEveryday: true,
+                isDayIntervals: false,
+                isSpecificDays: false
+              });
+            } else if (event.value === 'Every X days') {
+              setFormData({
+                ...formData,
+                isEveryday: false,
+                isDayIntervals: true,
+                isSpecificDays: false
+              });
+            } else if (event.value === 'Specific days of the week') {
+              setFormData({
+                ...formData,
+                isEveryday: false,
+                isDayIntervals: false,
+                isSpecificDays: true
+              });
+            }
+          }}
         />
-        {isError && formData.medForm === null && (
-          <small className="p-error">Schedule type is required</small>
-        )}
+      </div>
+      <div className="w-full flex justify-content-between">
+        <Button
+          className="pi pi-angle-left"
+          disabled
+          onClick={() => {
+            setPage((currPage) => currPage - 1);
+          }}
+        />
+        <Button
+          className="pi pi-angle-right"
+          style={{ justifySelf: 'end' }}
+          disabled={
+            formData.owner.name?.trim().length === 0 ||
+            formData.medication === '' ||
+            formData.medForm === '' ||
+            formData.dosage === null ||
+            selectedScheduleType === ''
+          }
+          onClick={() => {
+            setPage((currPage) => currPage + 1);
+          }}
+        />
       </div>
     </>
   );
