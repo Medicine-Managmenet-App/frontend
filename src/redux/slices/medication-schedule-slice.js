@@ -1,5 +1,3 @@
-'use client';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [
@@ -31,67 +29,7 @@ const initialState = [
     dosagePerDay: 2,
     dosageHours: ['2023-07-06T14:15:00.003Z', '2023-07-06T17:10:00.003Z'],
     additionDate: new Date(),
-    id: 1
-  },
-  {
-    owner: {
-      id: 1,
-      name: 'John Smith',
-      isChild: false,
-      dateOfBirth: '2023-07-06T20:20:54.705Z',
-      weight: null,
-      isMale: true
-    },
-    medication: { id: 2, name: 'Ibuprofen', expirationDate: '12-08-2023', openedOn: '12-03-2023' },
-    medForm: 'Pill(s)',
-    dosage: 2,
-    isEveryday: false,
-    isDayIntervals: true,
-    dayIntervals: 2,
-    isSpecificDays: false,
-    specificDays: {
-      Monday: false,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: false,
-      Friday: false,
-      Saturday: false,
-      Sunday: false
-    },
-    dosagePerDay: 2,
-    dosageHours: ['2023-07-06T14:15:00.003Z', '2023-07-06T17:10:00.003Z'],
-    additionDate: new Date(),
-    id: 3
-  },
-  {
-    owner: {
-      id: 3,
-      name: 'Suzie Smith',
-      isChild: true,
-      dateOfBirth: new Date(),
-      weight: 40,
-      isMale: false
-    },
-    medication: { id: 1, name: 'Apap', expirationDate: '12-08-2023', openedOn: '12-03-2023' },
-    medForm: 'Milligram(s)',
-    dosage: 3,
-    isEveryday: false,
-    isDayIntervals: false,
-    dayIntervals: null,
-    isSpecificDays: true,
-    specificDays: {
-      Monday: true,
-      Tuesday: false,
-      Wednesday: false,
-      Thursday: true,
-      Friday: false,
-      Saturday: false,
-      Sunday: true
-    },
-    dosagePerDay: 2,
-    dosageHours: ['2023-07-06T15:30:00.003Z', '2023-07-06T16:20:00.003Z'],
-    additionDate: new Date(),
-    id: 3
+    id: 13
   }
 ];
 
@@ -101,20 +39,30 @@ export const medicationScheduleSlice = createSlice({
   reducers: {
     addMedicationToSchedule: (state, action) => {
       state.push(action.payload);
-      console.log(action.payload);
     },
     removeMedicationFromSchedule: (state, action) => {
-      return state.filter((member) => member.name !== action.payload.name);
-    },
-    editMedicationSchedule: (state, action) => {
-      const index = state.findIndex((member) => member.id === action.payload.id);
+      const index = state.findIndex((medicine) => medicine.id === action.payload);
       if (index !== -1) {
-        state[index] = action.payload;
+        state.splice(index, 1);
+      }
+    },
+    removeDosageHour: (state, action) => {
+      const { medicineId, dosageHour } = action.payload;
+      const index = state.findIndex((medicine) => medicine.id === medicineId);
+      if (index !== -1) {
+        const dosageHourIndex = state[index].dosageHours.findIndex((hour) => hour === dosageHour);
+        if (dosageHourIndex !== -1) {
+          state[index].dosageHours.splice(dosageHourIndex, 1);
+          // If no dosageHours left, remove the medication completely
+          if (state[index].dosageHours.length === 0) {
+            state.splice(index, 1);
+          }
+        }
       }
     }
   }
 });
 
-export const { addMedicationToSchedule, removeMedicationFromSchedule, editMedicationSchedule } =
+export const { addMedicationToSchedule, removeMedicationFromSchedule } =
   medicationScheduleSlice.actions;
 export default medicationScheduleSlice.reducer;

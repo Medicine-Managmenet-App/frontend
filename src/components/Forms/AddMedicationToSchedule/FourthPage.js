@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-import { Calendar } from 'primereact/calendar';
-import { Button } from 'primereact/button';
+import { nanoid } from 'nanoid';
 
+import { Calendar } from 'primereact/calendar';
 const FourthPage = ({ formData, setFormData }) => {
   useEffect(() => {
     setFormData((prevState) => ({
@@ -27,7 +27,7 @@ const FourthPage = ({ formData, setFormData }) => {
               onChange={(e) => {
                 let newDosageHours = [...formData.dosageHours];
                 newDosageHours[index] = e.value;
-                setFormData({ ...formData, dosageHours: newDosageHours });
+                setFormData({ ...formData, dosageHours: newDosageHours, id: nanoid(10) });
               }}
               timeOnly
             />

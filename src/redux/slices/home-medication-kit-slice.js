@@ -1,5 +1,3 @@
-'use client';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [
@@ -14,10 +12,17 @@ export const medicationKitSlice = createSlice({
       state.push(action.payload);
     },
     removeMedicationFromKit: (state, action) => {
-      return state.filter((medication) => medication.name !== action.payload.name);
+      return state.filter((medication) => medication.id !== action.payload.id);
+    },
+    editMedicationInKit: (state, action) => {
+      const index = state.findIndex((medication) => medication.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
     }
   }
 });
 
-export const { addMedicationToKit, removeMedicationFromKit } = medicationKitSlice.actions;
+export const { addMedicationToKit, removeMedicationFromKit, editMedicationInKit } =
+  medicationKitSlice.actions;
 export default medicationKitSlice.reducer;

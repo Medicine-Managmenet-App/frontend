@@ -28,7 +28,8 @@ export const getMedicinesForDay = (scheduledMedicines, date, member) => {
         const time = new Date(hour).toLocaleTimeString();
         const medicine = {
           name: item.medication.name,
-          dosage: `${item.dosage} ${item.medForm}`
+          dosage: `${item.dosage} ${item.medForm}`,
+          id: item.id
         };
 
         if (medicinesByTime[time]) {

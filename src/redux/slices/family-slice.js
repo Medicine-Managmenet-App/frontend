@@ -1,5 +1,3 @@
-'use client';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [
@@ -30,7 +28,7 @@ export const familySlice = createSlice({
       state.push(action.payload);
     },
     removeFamilyMember: (state, action) => {
-      return state.filter((member) => member.name !== action.payload.name);
+      return state.filter((member) => member.id !== action.payload.id);
     },
     editFamilyMember: (state, action) => {
       const index = state.findIndex((member) => member.id === action.payload.id);

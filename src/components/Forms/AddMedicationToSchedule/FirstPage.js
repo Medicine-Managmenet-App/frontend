@@ -56,24 +56,11 @@ const FirstPage = ({ formData, setFormData, setPage }) => {
         />
       </div>
       <div className="flex flex-column gap-2 mb-4">
-        <div className="flex align-items-center">
-          <label htmlFor="dosage">Dosage of medication form</label>
-          <Button
-            icon="pi pi-info-circle"
-            className="ml-2"
-            rounded
-            text
-            onClick={() => setInfoVisible(true)}
-          />
-        </div>
-        <Dialog header="Dosage tip" visible={infoVisible} onHide={() => setInfoVisible(false)}>
-          <p>
-            Enter dosage amount of selected medication form.
-            <br />
-            For example, if you have chosen pills, enter how many pills one dosage should consist
-            of.
-          </p>
-        </Dialog>
+        <label htmlFor="dosage">
+          {formData.medForm
+            ? `Amount of ${formData.medForm.toLowerCase()} in single dosage`
+            : 'Dosage amount'}
+        </label>
         <InputNumber
           id="dosage"
           maxFractionDigits={2}

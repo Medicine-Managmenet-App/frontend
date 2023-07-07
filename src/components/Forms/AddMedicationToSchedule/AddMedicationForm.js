@@ -73,8 +73,7 @@ const AddMedicationToScheduleForm = () => {
       },
       dosagePerDay: null,
       dosageHours: [],
-      additionDate: null,
-      id: null
+      additionDate: null
     });
     setTimeout(() => {
       setPage(0);
