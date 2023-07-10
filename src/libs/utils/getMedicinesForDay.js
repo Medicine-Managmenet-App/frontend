@@ -5,9 +5,7 @@ export const getMedicinesForDay = (scheduledMedicines, date, member) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const dayName = daysOfWeek[dayOfWeek];
 
-  let medicinesByTime = [];
-
-  scheduledMedicines
+  const medicinesByTime = scheduledMedicines
     .filter((item) => item.owner.name === member.name)
     .filter((item) => {
       if (item.isEveryday) {
@@ -24,16 +22,12 @@ export const getMedicinesForDay = (scheduledMedicines, date, member) => {
         return false;
       }
     })
-    .forEach((item) => {
-      const time = format(new Date(item.dosageHour), 'HH:mm:ss');
-      const medicine = {
-        ...item,
-        time,
-        name: item.medication.name,
-        dosage: `${item.dosage} ${item.medForm}`
-      };
+    .map((item) => ({
+      ...item,
+      time: format(new Date(item.dosageHour), 'HH:mm:ss'),
+      name: item.medication.name,
+      dosage: `${item.dosage} ${item.medForm}`
+    }));
 
-      medicinesByTime.push(medicine);
-    });
   return medicinesByTime;
 };

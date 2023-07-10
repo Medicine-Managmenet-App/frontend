@@ -28,6 +28,7 @@ const initialState = [
       Sunday: false
     },
     additionDate: new Date(),
+    takenAt: ['2023-07-10T14:15:00.003Z'],
     id: 13
   }
 ];
@@ -44,10 +45,17 @@ export const medicationScheduleSlice = createSlice({
       if (index !== -1) {
         state.splice(index, 1);
       }
+    },
+    setMedicationAsTaken: (state, action) => {
+      const { id, checkTime } = action.payload;
+      const medication = state.find((medicine) => medicine.id === id);
+      if (medication) {
+        medication.takenAt.push(checkTime);
+      }
     }
   }
 });
 
-export const { addMedicationToSchedule, removeMedicationFromSchedule } =
+export const { addMedicationToSchedule, removeMedicationFromSchedule, setMedicationAsTaken } =
   medicationScheduleSlice.actions;
 export default medicationScheduleSlice.reducer;

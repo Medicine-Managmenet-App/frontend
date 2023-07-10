@@ -53,6 +53,8 @@ const MedicationSchedule = () => {
         <AddMedicationToScheduleForm />
       </div>
       <div className={`overflow-auto border-round-md p-3 border-solid border-gray-400 container`}>
+        {medicines.length < 1 &&
+          'Seems like there are no scheduled medications found for selected day.'}
         {Object.entries(groupBy(medicines, 'time'))
           .sort(([timeA], [timeB]) =>
             compareAsc(parse(timeA, 'HH:mm:ss', new Date()), parse(timeB, 'HH:mm:ss', new Date()))
@@ -68,7 +70,7 @@ const MedicationSchedule = () => {
                   </div>
                 </Divider>
                 {medicinesGroup.map((medicine) => (
-                  <MedicationScheduleCard key={medicine.id} medicine={medicine} />
+                  <MedicationScheduleCard key={medicine.id} medicine={medicine} date={date} />
                 ))}
               </div>
             );

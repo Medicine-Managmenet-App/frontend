@@ -36,6 +36,7 @@ const AddMedicationToScheduleForm = () => {
       Sunday: false
     },
     additionDate: null,
+    takenAt: [],
     id: null
   });
   const toast = useRef(null);
