@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const getMedicinesForDay = (scheduledMedicines, date, member) => {
   const dayOfWeek = date.getDay();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -23,7 +25,7 @@ export const getMedicinesForDay = (scheduledMedicines, date, member) => {
       }
     })
     .forEach((item) => {
-      const time = new Date(item.dosageHour).toLocaleTimeString();
+      const time = format(new Date(item.dosageHour), 'HH:mm:ss');
       const medicine = {
         ...item,
         time,
