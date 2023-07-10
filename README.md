@@ -21,6 +21,8 @@ Check live version [here!](https://tobeadded)
 - [PrimeReact](https://www.primefaces.org/primereact/)
 - [PrimeFlex](https://www.primefaces.org/primeflex/)
 - [date-fns](https://date-fns.org/)
+- [Universal Cookie](https://www.npmjs.com/package/universal-cookie)
+- [nanoid](https://www.npmjs.com/package/nanoid)
 
 ---
 
