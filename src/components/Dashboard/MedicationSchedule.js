@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { groupBy } from 'lodash';
 import { compareAsc, parse, format } from 'date-fns';
+
 import { getMedicinesForDay } from '@/libs/utils/getMedicinesForDay';
 
 import MedicationScheduleCard from './MedicationScheduleCard';
@@ -51,24 +53,24 @@ const MedicationSchedule = () => {
         <AddMedicationToScheduleForm />
       </div>
       <div className={`overflow-auto border-round-md p-3 border-solid border-gray-400 container`}>
-        {Object.keys(medicines)
-          .sort((a, b) =>
-            compareAsc(parse(a, 'HH:mm:ss', new Date()), parse(b, 'HH:mm:ss', new Date()))
+        {Object.entries(groupBy(medicines, 'time'))
+          .sort(([timeA], [timeB]) =>
+            compareAsc(parse(timeA, 'HH:mm:ss', new Date()), parse(timeB, 'HH:mm:ss', new Date()))
           )
-          .map((time) => {
+          .map(([time, medicinesGroup]) => {
             const formattedTime = format(parse(time, 'HH:mm:ss', new Date()), 'HH:mm');
 
             return (
-              <>
+              <div key={time}>
                 <Divider align="left">
                   <div className="inline-flex align-items-center">
                     <b>{formattedTime}</b>
                   </div>
                 </Divider>
-                {medicines[time].map((medicine, index) => (
-                  <MedicationScheduleCard key={index} medicine={medicine} />
+                {medicinesGroup.map((medicine) => (
+                  <MedicationScheduleCard key={medicine.id} medicine={medicine} />
                 ))}
-              </>
+              </div>
             );
           })}
       </div>

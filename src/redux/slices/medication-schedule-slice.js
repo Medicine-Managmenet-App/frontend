@@ -13,6 +13,7 @@ const initialState = [
     medication: { id: 1, name: 'Apap', expirationDate: '12-08-2023', openedOn: '12-03-2023' },
     medForm: 'Injection(s)',
     dosage: 3,
+    dosageHour: '2023-07-06T14:15:00.003Z',
     isEveryday: true,
     isDayIntervals: false,
     dayIntervals: null,
@@ -26,8 +27,6 @@ const initialState = [
       Saturday: false,
       Sunday: false
     },
-    dosagePerDay: 2,
-    dosageHours: ['2023-07-06T14:15:00.003Z', '2023-07-06T17:10:00.003Z'],
     additionDate: new Date(),
     id: 13
   }
@@ -44,20 +43,6 @@ export const medicationScheduleSlice = createSlice({
       const index = state.findIndex((medicine) => medicine.id === action.payload);
       if (index !== -1) {
         state.splice(index, 1);
-      }
-    },
-    removeDosageHour: (state, action) => {
-      const { medicineId, dosageHour } = action.payload;
-      const index = state.findIndex((medicine) => medicine.id === medicineId);
-      if (index !== -1) {
-        const dosageHourIndex = state[index].dosageHours.findIndex((hour) => hour === dosageHour);
-        if (dosageHourIndex !== -1) {
-          state[index].dosageHours.splice(dosageHourIndex, 1);
-          // If no dosageHours left, remove the medication completely
-          if (state[index].dosageHours.length === 0) {
-            state.splice(index, 1);
-          }
-        }
       }
     }
   }

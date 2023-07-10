@@ -2,14 +2,15 @@ import { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { nanoid } from 'nanoid';
+
 import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
-import { Dialog } from 'primereact/dialog';
+import { Calendar } from 'primereact/calendar';
 import { Button } from 'primereact/button';
 
-const FirstPage = ({ formData, setFormData, setPage }) => {
+const FirstPage = ({ formData, setFormData, setPage, handleSubmit }) => {
   const [selectedScheduleType, setSelectedScheduleType] = useState('');
-  const [infoVisible, setInfoVisible] = useState(false);
   const family = useSelector((state) => state.family);
   const medicationKit = useSelector((state) => state.medicationKit);
 
@@ -71,6 +72,22 @@ const FirstPage = ({ formData, setFormData, setPage }) => {
         />
       </div>
       <div className="flex flex-column gap-2 mb-4">
+        <label htmlFor="dosageHour">At what time do you take it?</label>
+        <Calendar
+          id="dosageHour"
+          timeOnly
+          value={formData.dosageHour}
+          onChange={(event) =>
+            setFormData({
+              ...formData,
+              dosageHour: event.value,
+              additionDate: new Date(),
+              id: nanoid(10)
+            })
+          }
+        />
+      </div>
+      <div className="flex flex-column gap-2 mb-4">
         <label htmlFor="scheduleType">How often do you take it?</label>
         <Dropdown
           id="scheduleType"
@@ -111,20 +128,38 @@ const FirstPage = ({ formData, setFormData, setPage }) => {
             setPage((currPage) => currPage - 1);
           }}
         />
-        <Button
-          className="pi pi-angle-right"
-          style={{ justifySelf: 'end' }}
-          disabled={
-            formData.owner.name?.trim().length === 0 ||
-            formData.medication === '' ||
-            formData.medForm === '' ||
-            formData.dosage === null ||
-            selectedScheduleType === ''
-          }
-          onClick={() => {
-            setPage((currPage) => currPage + 1);
-          }}
-        />
+        {formData.isEveryday && (
+          <Button
+            label="Submit"
+            style={{ justifySelf: 'end' }}
+            disabled={
+              formData.owner.name?.trim().length === 0 ||
+              formData.medication === '' ||
+              formData.medForm === '' ||
+              formData.dosage === null ||
+              selectedScheduleType === ''
+            }
+            onClick={() => {
+              handleSubmit();
+            }}
+          />
+        )}
+        {!formData.isEveryday && (
+          <Button
+            className="pi pi-angle-right"
+            style={{ justifySelf: 'end' }}
+            disabled={
+              formData.owner.name?.trim().length === 0 ||
+              formData.medication === '' ||
+              formData.medForm === '' ||
+              formData.dosage === null ||
+              selectedScheduleType === ''
+            }
+            onClick={() => {
+              setPage((currPage) => currPage + 1);
+            }}
+          />
+        )}
       </div>
     </>
   );

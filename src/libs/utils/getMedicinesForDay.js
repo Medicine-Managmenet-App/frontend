@@ -1,10 +1,9 @@
-// parse data from global state and return list of medicines to be taken on the current day
 export const getMedicinesForDay = (scheduledMedicines, date, member) => {
   const dayOfWeek = date.getDay();
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const dayName = daysOfWeek[dayOfWeek];
 
-  let medicinesByTime = {};
+  let medicinesByTime = [];
 
   scheduledMedicines
     .filter((item) => item.owner.name === member.name)
@@ -24,23 +23,15 @@ export const getMedicinesForDay = (scheduledMedicines, date, member) => {
       }
     })
     .forEach((item) => {
-      item.dosageHours.forEach((hour) => {
-        const time = new Date(hour).toLocaleTimeString();
-        const medicine = {
-          name: item.medication.name,
-          dosage: `${item.dosage} ${item.medForm}`,
-          id: item.id
-        };
+      const time = new Date(item.dosageHour).toLocaleTimeString();
+      const medicine = {
+        ...item,
+        time,
+        name: item.medication.name,
+        dosage: `${item.dosage} ${item.medForm}`
+      };
 
-        if (medicinesByTime[time]) {
-          medicinesByTime[time].push(medicine);
-        } else {
-          medicinesByTime[time] = [medicine];
-        }
-      });
+      medicinesByTime.push(medicine);
     });
-
   return medicinesByTime;
 };
-
-export default getMedicinesForDay;

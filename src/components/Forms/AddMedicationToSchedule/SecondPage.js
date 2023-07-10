@@ -4,14 +4,12 @@ import { InputNumber } from 'primereact/inputnumber';
 import { Button } from 'primereact/button';
 import { MultiSelect } from 'primereact/multiselect';
 
-const SecondPage = ({ formData, setFormData, setPage }) => {
+const SecondPage = ({ formData, setFormData, setPage, handleSubmit }) => {
   const [selectedDays, setSelectedDays] = useState(null);
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const secondPageDisplay = () => {
-    if (formData.isEveryday) {
-      setPage(2);
-    } else if (formData.isDayIntervals) {
+    if (formData.isDayIntervals) {
       return (
         <div className="flex flex-column gap-2 mb-4">
           <label htmlFor="dayIntervals">Set day intervals</label>
@@ -78,11 +76,11 @@ const SecondPage = ({ formData, setFormData, setPage }) => {
           }}
         />
         <Button
-          className="pi pi-angle-right"
+          label="Submit"
           style={{ justifySelf: 'end' }}
           disabled={formData.isSpecificDays && selectedDays === null}
           onClick={() => {
-            setPage((currPage) => currPage + 1);
+            handleSubmit();
           }}
         />
       </div>

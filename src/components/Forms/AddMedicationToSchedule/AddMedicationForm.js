@@ -7,8 +7,6 @@ import { addMedicationToSchedule } from '@/redux/slices/medication-schedule-slic
 
 import FirstPage from './FirstPage';
 import SecondPage from './SecondPage';
-import ThirdPage from './ThirdPage';
-import FourthPage from './FourthPage';
 
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
@@ -22,6 +20,7 @@ const AddMedicationToScheduleForm = () => {
     medication: {},
     medForm: '',
     dosage: null,
+    dosageHour: null,
     scheduleType: '',
     isEveryday: false,
     isDayIntervals: false,
@@ -36,8 +35,6 @@ const AddMedicationToScheduleForm = () => {
       Saturday: false,
       Sunday: false
     },
-    dosagePerDay: null,
-    dosageHours: [],
     additionDate: null,
     id: null
   });
@@ -46,8 +43,8 @@ const AddMedicationToScheduleForm = () => {
 
   const handleSubmit = () => {
     dispatch(addMedicationToSchedule(formData));
-    setVisible(false);
     console.log(formData);
+    setVisible(false);
     resetFormValues();
     showSuccess();
   };
@@ -71,8 +68,6 @@ const AddMedicationToScheduleForm = () => {
         Saturday: false,
         Sunday: false
       },
-      dosagePerDay: null,
-      dosageHours: [],
       additionDate: null
     });
     setTimeout(() => {
@@ -91,30 +86,22 @@ const AddMedicationToScheduleForm = () => {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <FirstPage formData={formData} setFormData={setFormData} setPage={setPage} />;
-    } else if (page === 1) {
-      return <SecondPage formData={formData} setFormData={setFormData} setPage={setPage} />;
-    } else if (page === 2) {
-      return <ThirdPage formData={formData} setFormData={setFormData} setPage={setPage} />;
-    } else if (page === 3) {
       return (
-        <>
-          <FourthPage formData={formData} setFormData={setFormData} setPage={setPage} />
-          <div className="w-full flex justify-content-between">
-            <Button
-              className="pi pi-angle-left"
-              onClick={() => {
-                setPage((currPage) => currPage - 1);
-              }}
-            />
-            <Button
-              label="Submit"
-              style={{ justifySelf: 'end' }}
-              disabled={formData.dosageHours.length < formData.dosagePerDay}
-              onClick={handleSubmit}
-            />
-          </div>
-        </>
+        <FirstPage
+          formData={formData}
+          setFormData={setFormData}
+          setPage={setPage}
+          handleSubmit={handleSubmit}
+        />
+      );
+    } else if (page === 1) {
+      return (
+        <SecondPage
+          formData={formData}
+          setFormData={setFormData}
+          setPage={setPage}
+          handleSubmit={handleSubmit}
+        />
       );
     }
   };
