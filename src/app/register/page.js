@@ -1,5 +1,3 @@
-'use client';
-
 import RegisterForm from '@/components/LoginComponents/RegisterForm';
 
 const RegisterPage = () => {
