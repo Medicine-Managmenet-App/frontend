@@ -1,4 +1,6 @@
 // login page
+'use client';
+
 import LoginForm from '@/components/LoginComponents/LoginForm';
 
 const LoginPage = () => {
@@ -23,10 +25,6 @@ const LoginPage = () => {
       </div>
     </section>
   );
-};
-
-export const metadata = {
-  title: 'Login | Medicine Management App'
 };
 
 export default LoginPage;

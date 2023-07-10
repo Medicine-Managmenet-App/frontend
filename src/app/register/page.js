@@ -1,3 +1,5 @@
+'use client';
+
 import RegisterForm from '@/components/LoginComponents/RegisterForm';
 
 const RegisterPage = () => {
@@ -22,10 +24,6 @@ const RegisterPage = () => {
       </div>
     </section>
   );
-};
-
-export const metadata = {
-  title: 'Register | Medicine Management App'
 };
 
 export default RegisterPage;
