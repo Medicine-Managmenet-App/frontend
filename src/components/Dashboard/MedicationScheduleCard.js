@@ -15,19 +15,26 @@ import { Checkbox } from 'primereact/checkbox';
 
 const MedicationScheduleCard = ({ medicine, date }) => {
   const [checked, setChecked] = useState(false);
+  const [manuallyChecked, setManuallyChecked] = useState(false); // New state
   const [checkTime, setCheckTime] = useState('');
   const dispatch = useDispatch();
   const today = new Date();
 
   useEffect(() => {
-    const takenDates = medicine.takenAt.map((dateStr) => parseISO(dateStr));
-    const takenDate = takenDates.find((takenDate) =>
-      isSameDay(startOfDay(takenDate), startOfDay(date))
-    );
+    if (!manuallyChecked) {
+      const takenDates = medicine.takenAt.map((dateStr) => parseISO(dateStr));
+      const takenDate = takenDates.find((takenDate) =>
+        isSameDay(startOfDay(takenDate), startOfDay(date))
+      );
 
-    setChecked(takenDate !== undefined);
-    setCheckTime(takenDate ? format(takenDate, 'HH:mm') : '');
-  }, [date, medicine.takenAt]);
+      setChecked(takenDate !== undefined);
+      setCheckTime(takenDate ? format(takenDate, 'HH:mm') : '');
+    }
+  }, [date, medicine.takenAt, manuallyChecked]);
+
+  useEffect(() => {
+    setManuallyChecked(false);
+  }, [date]);
 
   const handleDelete = (medicine) => {
     dispatch(removeMedicationFromSchedule(medicine.id));
@@ -43,12 +50,11 @@ const MedicationScheduleCard = ({ medicine, date }) => {
     });
   };
 
-  const handleCheck = (e) => {
-    setChecked(e.checked);
-    if (e.checked) {
-      setCheckTime(format(new Date(), 'HH:mm'));
-      dispatch(setMedicationAsTaken({ id: medicine.id, checkTime: new Date() }));
-    }
+  const handleCheck = () => {
+    setChecked(true);
+    setManuallyChecked(true); // Set manuallyChecked to true when checkbox is checked
+    setCheckTime(format(new Date(), 'HH:mm'));
+    dispatch(setMedicationAsTaken({ id: medicine.id, checkTime: new Date() }));
   };
 
   return (

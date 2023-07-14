@@ -2,12 +2,19 @@
 
 import { usePathname } from 'next/navigation';
 
+import { useSession } from 'next-auth/react';
+
 import Link from 'next/link';
 
 import classes from './Navigation.module.css';
 
 const NavigationBar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  if (!session) {
+    return <></>;
+  }
   return (
     <footer className="fixed bottom-0 left-50 w-full md:w-5 lg:w-4 xl:w-3 md:mb-3 mx-0 my-auto flex justify-content-center pb-3 pt-3 bg-white-alpha-90 shadow-5 border-round-xl">
       <ul className="flex p-0 m-0 mb-1 list-none gap-5 ">

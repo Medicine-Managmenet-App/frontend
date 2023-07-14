@@ -14,6 +14,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 
 import { Providers } from '@/redux/provider/Providers';
+import { AuthProvider } from '@/app/api/auth/SessionProvider';
 
 import UserPanel from '@/components/UserPanel/UserPanel';
 import NavigationBar from '@/components/Navigation/Navigation';
@@ -21,17 +22,17 @@ import NavigationBar from '@/components/Navigation/Navigation';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }) {
-  const isLoggedIn = true;
-
   return (
     <html lang="en">
       <body className={`${inter.className} surface-300`}>
         <main>
-          <Providers>
-            {isLoggedIn && <UserPanel />}
-            {children}
-            {isLoggedIn && <NavigationBar />}
-          </Providers>
+          <AuthProvider>
+            <Providers>
+              <UserPanel />
+              {children}
+              <NavigationBar />
+            </Providers>
+          </AuthProvider>
         </main>
       </body>
     </html>

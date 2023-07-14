@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { useSession } from 'next-auth/react';
+
 import { format } from 'date-fns';
 
 import { Sidebar } from 'primereact/sidebar';
@@ -12,6 +14,7 @@ const UserPanel = () => {
   const [visible, setVisible] = useState(false);
   const currentDate = new Date();
   const formattedDate = format(currentDate, "do 'of' MMMM, yyyy");
+  const { data: session } = useSession();
 
   const confirmLogOut = () => {
     confirmDialog({
@@ -20,6 +23,10 @@ const UserPanel = () => {
       icon: 'pi pi-info-circle'
     });
   };
+
+  if (!session?.user) {
+    return <></>;
+  }
 
   return (
     <nav className="w-full p-3 lg:px-5 mb-4 flex justify-content-between align-items-center shadow-3 h-3rem absolute top-0 bg-white-alpha-90">

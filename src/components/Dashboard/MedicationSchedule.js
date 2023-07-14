@@ -4,6 +4,8 @@ import { React, useState, useEffect } from 'react';
 
 import { useSelector } from 'react-redux';
 
+import { useSession } from 'next-auth/react';
+
 import { groupBy } from 'lodash';
 import { compareAsc, parse, format } from 'date-fns';
 
@@ -23,6 +25,7 @@ const MedicationSchedule = () => {
   const scheduledMedicines = useSelector((state) => state.schedule);
   const [selectedMember, setSelectedMember] = useState(family[0]);
   const [medicines, setMedicines] = useState([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const result = getMedicinesForDay(scheduledMedicines, date, selectedMember);
