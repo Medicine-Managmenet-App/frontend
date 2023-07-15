@@ -22,7 +22,7 @@ export const options = {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Accept: '*/*'
+            'Accept': '*/*',
           },
           body: JSON.stringify({
             login: credentials.username,

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { registerNewUser } from '@/libs/services/users/registerNewUser';
 
 import Link from 'next/link';
@@ -17,6 +19,7 @@ const RegisterForm = () => {
   const [error, setError] = useState('');
   const [formError, setFormError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
